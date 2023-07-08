@@ -1,20 +1,117 @@
 <!DOCTYPE html>
 
 <html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Affichage de l'heure - examen</title>
+    <!-- <meta http-equiv="refresh" content="5" /> -->
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Integration virgin template</title>
-    
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <link rel="stylesheet" href="assets/css/reset.css" />
-        <link rel="stylesheet" href="assets/css/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    </head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@500&display=swap" rel="stylesheet" />
 
-<body>
+    <link rel="stylesheet" href="assets/css/minireset.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
 
-</body>
+    <script src="assets/js/moment.min.js"></script>
+    <script src="assets/js/moment-fr.min.js"></script>
 
+    <script>
+      moment.locale("fr");
+    </script>
+  </head>
+
+  <body class="body">
+    <main class="main">
+      <p class="main__time" id="time"></p>
+      <div class="progress">
+        <p class="progress__hour" id="start"></p>
+        <div class="progress__box">
+          <hr class="progress__box_separator" />
+          <div class="progress__box_bar">
+            <div class="progress__box_bar_progression" id="progression"></div>
+            <div class="progress__box_bar_exit" id="exit">
+              <hr class="progress__box_bar_exit_line" />
+              <svg class="progress__box_bar_exit_icon" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                <path
+                  d="M320 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM125.7 175.5c9.9-9.9 23.4-15.5 37.5-15.5c1.9 0 3.8 .1 5.6 .3L137.6 254c-9.3 28 1.7 58.8 26.8 74.5l86.2 53.9-25.4 88.8c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l28.7-100.4c5.9-20.6-2.6-42.6-20.7-53.9L238 299l30.9-82.4 5.1 12.3C289 264.7 323.9 288 362.7 288H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H362.7c-12.9 0-24.6-7.8-29.5-19.7l-6.3-15c-14.6-35.1-44.1-61.9-80.5-73.1l-48.7-15c-11.1-3.4-22.7-5.2-34.4-5.2c-31 0-60.8 12.3-82.7 34.3L57.4 153.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l23.1-23.1zM91.2 352H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h69.6c19 0 36.2-11.2 43.9-28.5L157 361.6l-9.5-6c-17.5-10.9-30.5-26.8-37.9-44.9L91.2 352z"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <hr class="progress__box_separator" />
+        </div>
+        <p class="progress__hour" id="end"></p>
+      </div>
+
+      <p class="body__title">ANGLAIS</p>
+    </main>
+
+    <img class="body__plant" src="assets/images/plant-pot.webp" alt="Plante" />
+    <!-- <img class="body__benjamin" src="assets/images/benjamin.png" alt="Plante" /> -->
+  </body>
+
+  <script>
+    let time = moment();
+    display(time.format("LT"), "time");
+    console.log("time : " + time.format("LT"));
+
+    let start = moment("13:50", "HH:mm");
+    display(start.format("HH:mm"), "start");
+
+    let exit = moment("14:50", "HH:mm");
+    display(start.format("HH:mm"), "start");
+    console.log("exit : " + exit.fromNow());
+
+    let end = moment("15:50", "HH:mm");
+    display(end.format("HH:mm"), "end");
+    // console.log("start : " + end.fromNow());
+
+    let difference__start = end.diff(start, "minutes");
+    console.log("difference start/end : " + difference__start);
+
+    let difference__exit = end.diff(exit, "minutes");
+    console.log("difference start/exit : " + difference__exit);
+
+    let exitPassed = exit.diff(moment(), "minutes");
+    console.log("exitPassed : " + exitPassed);
+    if (exitPassed < 0) {
+      document.getElementById("exit").classList.add("passed");
+    }
+
+    let remaining = end.diff(moment(), "minutes");
+    console.log("remaining : " + remaining);
+
+    let progression = 100 - (remaining * 100) / difference__start;
+    document.getElementById("progression").style.width = progression + "%";
+    console.log("progression : " + progression + "%");
+
+    let exit_distance = 100 - (difference__exit * 100) / difference__start;
+    document.getElementById("exit").style.left = "calc(" + exit_distance + "% - " + "1.25rem)";
+    console.log("exit distance  : " + exit_distance + "%");
+
+    function display(value, id) {
+      document.getElementById(id).innerText = value;
+    }
+
+    setInterval(function () {
+      // Actualisation de la progression
+      remaining = end.diff(moment(), "minutes");
+      progression = 100 - (remaining * 100) / difference__start;
+      document.getElementById("progression").style.width = progression + "%";
+
+      exitPassed = exit.diff(moment(), "minutes");
+      // console.log("exitPassed : " + exitPassed);
+      if (exitPassed < 0) {
+        document.getElementById("exit").classList.add("passed");
+      }
+
+      // Actualisation de l'heure
+      time = moment();
+      display(time.format("LT"), "time");
+    }, 30000);
+  </script>
 </html>

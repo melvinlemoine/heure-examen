@@ -1,0 +1,135 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.body {
+  color: white;
+  background-color: black;
+  font-family: Poppins;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.body__title {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  border: 1px solid white;
+}
+@media screen and (min-height: 1050px) {
+  .body__title {
+    bottom: 15%;
+  }
+}
+.body__plant {
+  position: absolute;
+  bottom: 0;
+  right: 20%;
+  width: 7.5rem;
+}
+.body__benjamin {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 12.5rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main__time {
+  font-weight: 800;
+  font-size: 15rem;
+  font-family: Montserrat;
+}
+.main .progress {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.main .progress__box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin-inline: 1rem;
+}
+.main .progress__box_separator {
+  background-color: white;
+  border: 0;
+  width: 100%;
+  height: 1px;
+  opacity: 0.25;
+}
+.main .progress__box_bar {
+  position: relative;
+  display: flex;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.25);
+  margin: 0.5rem 0;
+}
+.main .progress__box_bar_progression {
+  background-color: white;
+  height: 0.5rem;
+  width: 0%;
+  transition: width 60s ease-in-out;
+}
+.main .progress__box_bar_exit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  width: 2.5rem;
+  top: calc(100% + 1.5rem);
+  opacity: 0.5;
+  transition: opacity 10s ease-in-out;
+}
+.main .progress__box_bar_exit.passed {
+  opacity: 1;
+}
+.main .progress__box_bar_exit.passed hr {
+  background-color: #46B450;
+}
+.main .progress__box_bar_exit.passed svg {
+  fill: #46B450;
+}
+.main .progress__box_bar_exit_line {
+  height: 1.5rem;
+  width: 2px;
+  background-color: white;
+  border: 0;
+  transition: background-color 10s ease-in-out;
+}
+.main .progress__box_bar_exit_icon {
+  margin-top: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  fill: white;
+  transition: fill 10s ease-in-out;
+}
+.main .progress__hour {
+  font-weight: 500;
+  font-size: 1.75rem;
+  font-family: Montserrat;
+}
+
+/*# sourceMappingURL=style.css.map */
